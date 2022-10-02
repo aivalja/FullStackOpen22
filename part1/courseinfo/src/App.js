@@ -5,12 +5,11 @@ const Header = (props) => {
 }
 
 const Content = (props) => {
-  return [
-      <Part name={props.names[0]} count={props.counts[0]}/>,
-      <Part name={props.names[1]} count={props.counts[1]}/>,
-      <Part name={props.names[2]} count={props.counts[2]}/>
-    ]
-    
+  let parts = []
+  props.parts.forEach(part => {
+    parts.push(<Part name={part.name} count={part.exercises}/>)
+  });
+  return parts
 }
 
 const Part = (props) => {
@@ -22,27 +21,62 @@ const Part = (props) => {
 }
 
 const Total = (props) => {
+  let totalCount = 0
+  props.total.forEach(element => {
+    totalCount += element.exercises
+  });
   return(
-      <p>Number of exercises {props.total}</p>
+      <p>Number of exercises {totalCount}</p>
     
   )
 }
 
+const Course = (props) => {
+  let elements = []
+  elements.push(<Header course={props.course.name} />)
+  elements.push(<Content parts={props.course.parts}/>)
+  elements.push(<Total total={props.course.parts}/>)
+  return(elements)
+}
+
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  // const course = 'Half Stack application development'
+  // const parts = [
+  //   {
+  //     name: 'Fundamentals of React',
+  //     exercises: 10
+  //   },
+  //   {
+  //     name: 'Using props to pass data',
+  //     exercises: 7
+  //   },
+  //   {
+  //     name: 'State of a component',
+  //     exercises: 14
+  //   }
+  // ]
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  }
 
   return (
     <div>
-      <Header course={course} />
-      <Content names={[part1, part2, part3]} counts={[exercises1, exercises2, exercises3]}/>
-      <Total total={exercises1 + exercises2 + exercises3}/>
+      <Course course={course} />
     </div>
   )
 }
