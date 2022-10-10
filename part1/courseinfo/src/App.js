@@ -4,15 +4,15 @@ const Header = (props) => {
   )
 }
 
-const Content = (props) => {
+const CourseContent = (props) => {
   let parts = []
   props.parts.forEach(part => {
-    parts.push(<Part name={part.name} count={part.exercises}/>)
+    parts.push(<CoursePart name={part.name} count={part.exercises}/>)
   });
   return parts
 }
 
-const Part = (props) => {
+const CoursePart = (props) => {
   return(
     <p>
       {props.name} {props.count}
@@ -20,7 +20,7 @@ const Part = (props) => {
   )
 }
 
-const Total = (props) => {
+const ExercisesTotal = (props) => {
   let totalCount = 0
   props.total.forEach(element => {
     totalCount += element.exercises
@@ -33,9 +33,9 @@ const Total = (props) => {
 
 const Course = (props) => {
   let elements = []
-  elements.push(<Header course={props.course.name} />)
-  elements.push(<Content parts={props.course.parts}/>)
-  elements.push(<Total total={props.course.parts}/>)
+  elements.push(<Header course={props.course.name}/>)
+  elements.push(<CourseContent parts={props.course.parts}/>)
+  elements.push(<ExercisesTotal total={props.course.parts}/>)
   return(elements)
 }
 
